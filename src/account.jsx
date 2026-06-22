@@ -1,4 +1,4 @@
-/* global React, Icon, ORDERS, brl, go, PRODUCTS */
+﻿/* global React, Icon, ORDERS, brl, go, PRODUCTS */
 const { useState } = React;
 
 window.AccountPage = function AccountPage() {
@@ -11,8 +11,8 @@ window.AccountPage = function AccountPage() {
           <div style={{ width: 84, height: 84, borderRadius: 999, background: "var(--orange-600)", color: "#fff", display: "grid", placeItems: "center", fontSize: 32, fontWeight: 700, fontFamily: "var(--display)" }}>JS</div>
           <div>
             <div className="mono" style={{ color: "var(--orange-500)" }}>Produtor desde 2019</div>
-            <h1 style={{ fontSize: 48, color: "var(--cream-100)" }}>João da Silva</h1>
-            <div style={{ fontSize: 14, color: "rgba(244,234,213,0.7)", marginTop: 4 }}>Sítio Boa Vista • Pouso Alegre/MG • 24 pedidos no histórico</div>
+            <h1 style={{ fontSize: 48, color: "var(--cream-100)" }}>JoÃ£o da Silva</h1>
+            <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", marginTop: 4 }}>SÃ­tio Boa Vista â€¢ Pouso Alegre/MG â€¢ 24 pedidos no histÃ³rico</div>
           </div>
           <button className="btn btn-outline" style={{ color: "var(--cream-100)", boxShadow: "inset 0 0 0 1.5px var(--cream-100)" }} onClick={()=>go("home")}>
             <Icon.Logout size={16} color="var(--cream-100)"/> Sair
@@ -28,10 +28,10 @@ window.AccountPage = function AccountPage() {
               {[
                 { id: "pedidos", t: "Meus pedidos", icon: "Package", count: 24 },
                 { id: "favoritos", t: "Favoritos", icon: "Heart", count: 12 },
-                { id: "enderecos", t: "Endereços", icon: "Pin", count: 2 },
+                { id: "enderecos", t: "EndereÃ§os", icon: "Pin", count: 2 },
                 { id: "pagamento", t: "Formas de pagamento", icon: "CreditCard" },
                 { id: "perfil", t: "Meus dados", icon: "User" },
-                { id: "agronomo", t: "Falar com agrônomo", icon: "Whatsapp" },
+                { id: "agronomo", t: "Falar com agrÃ´nomo", icon: "Whatsapp" },
               ].map(item => {
                 const I = Icon[item.icon];
                 const active = tab === item.id;
@@ -52,19 +52,19 @@ window.AccountPage = function AccountPage() {
               <>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
                   <div>
-                    <div className="eyebrow">Histórico</div>
+                    <div className="eyebrow">HistÃ³rico</div>
                     <h2 style={{ marginTop: 8, fontSize: 36 }}>Meus pedidos</h2>
                   </div>
                   <div style={{ display: "flex", gap: 8 }}>
                     <select className="select" style={{ width: "auto", padding: "8px 12px", fontSize: 13 }}>
                       <option>Todos os pedidos</option>
-                      <option>Em trânsito</option>
+                      <option>Em trÃ¢nsito</option>
                       <option>Entregues</option>
                       <option>Cancelados</option>
                     </select>
                     <select className="select" style={{ width: "auto", padding: "8px 12px", fontSize: 13 }}>
-                      <option>Últimos 90 dias</option>
-                      <option>Últimos 6 meses</option>
+                      <option>Ãšltimos 90 dias</option>
+                      <option>Ãšltimos 6 meses</option>
                       <option>2026</option>
                       <option>2025</option>
                     </select>
@@ -76,8 +76,8 @@ window.AccountPage = function AccountPage() {
                   {[
                     { l: "Pedidos esse ano", v: "8", sub: "+ 2 vs ano passado" },
                     { l: "Investido na safra", v: brl(18420.50), sub: "Janeiro a abril" },
-                    { l: "Boleto agrícola aberto", v: brl(4200), sub: "Vence em 90 dias" },
-                    { l: "Cashback acumulado", v: brl(184.20), sub: "Pra usar na próxima" },
+                    { l: "Boleto agrÃ­cola aberto", v: brl(4200), sub: "Vence em 90 dias" },
+                    { l: "Cashback acumulado", v: brl(184.20), sub: "Pra usar na prÃ³xima" },
                   ].map((s,i) => (
                     <div key={i} className="card" style={{ padding: 20, background: i === 0 ? "var(--cream-100)" : "var(--paper)" }}>
                       <div className="mono" style={{ color: "var(--ink-500)", fontSize: 10 }}>{s.l}</div>
@@ -98,7 +98,7 @@ window.AccountPage = function AccountPage() {
                             <span className="mono" style={{ color: "var(--ink-500)", fontSize: 11 }}>{o.id}</span>
                           </div>
                           <div className="display" style={{ fontSize: 20, fontWeight: 600 }}>Pedido feito em {o.date}</div>
-                          <div style={{ fontSize: 13, color: "var(--ink-500)", marginTop: 4 }}>{o.items} itens • {o.eta}</div>
+                          <div style={{ fontSize: 13, color: "var(--ink-500)", marginTop: 4 }}>{o.items} itens â€¢ {o.eta}</div>
                         </div>
                         <div style={{ textAlign: "right" }}>
                           <div className="mono" style={{ color: "var(--ink-500)", fontSize: 10 }}>Total</div>
@@ -124,14 +124,14 @@ window.AccountPage = function AccountPage() {
                         <div style={{ marginTop: 16, padding: 16, background: "var(--cream-100)", borderRadius: 10 }}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, fontSize: 12 }}>
                             <span className="mono" style={{ color: "var(--green-700)" }}>RASTREIO</span>
-                            <span style={{ color: "var(--ink-500)" }}>Atualizado há 2h</span>
+                            <span style={{ color: "var(--ink-500)" }}>Atualizado hÃ¡ 2h</span>
                           </div>
                           <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
                             {["Confirmado", "Separado", "Saiu pra entrega", "Entregue"].map((s, j) => (
                               <React.Fragment key={s}>
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, flex: "0 0 auto" }}>
                                   <div style={{ width: 28, height: 28, borderRadius: 999, background: j <= 2 ? "var(--green-700)" : "var(--cream-200)", color: j <= 2 ? "var(--cream-100)" : "var(--ink-500)", display: "grid", placeItems: "center", fontSize: 13 }}>
-                                    {j <= 2 ? "✓" : j+1}
+                                    {j <= 2 ? "âœ“" : j+1}
                                   </div>
                                   <span style={{ fontSize: 11, color: j <= 2 ? "var(--ink-900)" : "var(--ink-500)", fontWeight: j === 2 ? 600 : 400 }}>{s}</span>
                                 </div>
@@ -150,9 +150,9 @@ window.AccountPage = function AccountPage() {
             {tab !== "pedidos" && (
               <div className="card" style={{ padding: 64, textAlign: "center" }}>
                 <Icon.Package size={48} color="var(--ink-300)"/>
-                <h3 style={{ marginTop: 16, fontSize: 24 }}>Em construção</h3>
-                <p style={{ marginTop: 8, color: "var(--ink-500)" }}>Esta seção será desenhada na próxima rodada.</p>
-                <button className="btn btn-outline" style={{ marginTop: 16 }} onClick={()=>setTab("pedidos")}>← Voltar pra pedidos</button>
+                <h3 style={{ marginTop: 16, fontSize: 24 }}>Em construÃ§Ã£o</h3>
+                <p style={{ marginTop: 8, color: "var(--ink-500)" }}>Esta seÃ§Ã£o serÃ¡ desenhada na prÃ³xima rodada.</p>
+                <button className="btn btn-outline" style={{ marginTop: 16 }} onClick={()=>setTab("pedidos")}>â† Voltar pra pedidos</button>
               </div>
             )}
           </div>
@@ -161,3 +161,5 @@ window.AccountPage = function AccountPage() {
     </div>
   );
 };
+
+

@@ -1,10 +1,10 @@
-/* global React, Icon, ProductCard, PRODUCTS, brl, go */
+﻿/* global React, Icon, ProductCard, PRODUCTS, brl, go */
 const { useState } = React;
 
 window.SearchPage = function SearchPage() {
   const [q, setQ] = useState("ureia");
-  const recent = ["NPK 04-14-08", "calcário", "semente soja", "pulverizador costal"];
-  const trending = ["foliar zinco", "ureia 50kg", "defensivo herbicida", "cama de aviário", "gesso agrícola"];
+  const recent = ["NPK 04-14-08", "calcÃ¡rio", "semente soja", "pulverizador costal"];
+  const trending = ["foliar zinco", "ureia 50kg", "defensivo herbicida", "cama de aviÃ¡rio", "gesso agrÃ­cola"];
   return (
     <div>
       <section style={{ background: "var(--green-900)", padding: "64px 0", color: "var(--cream-100)" }}>
@@ -25,9 +25,9 @@ window.SearchPage = function SearchPage() {
             <button className="btn btn-primary btn-lg" style={{ position: "absolute", right: 8, top: 8, height: 48 }}>Buscar</button>
           </div>
           <div style={{ marginTop: 16, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-            <span style={{ fontSize: 12, color: "rgba(244,234,213,0.6)", marginRight: 4 }}>Em alta:</span>
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", marginRight: 4 }}>Em alta:</span>
             {trending.map((t, i) => (
-              <button key={i} onClick={()=>setQ(t)} className="pill" style={{ background: "rgba(244,234,213,0.1)", color: "var(--cream-100)" }}>{t}</button>
+              <button key={i} onClick={()=>setQ(t)} className="pill" style={{ background: "rgba(255,255,255,0.1)", color: "var(--cream-100)" }}>{t}</button>
             ))}
           </div>
         </div>
@@ -51,8 +51,8 @@ window.SearchPage = function SearchPage() {
                 </div>
               </div>
               <div className="card-soft" style={{ padding: 16 }}>
-                <div className="display" style={{ fontSize: 14, fontWeight: 600 }}>Não encontrou?</div>
-                <div style={{ fontSize: 12, color: "var(--ink-500)", marginTop: 6 }}>Manda foto da embalagem ou nome no WhatsApp e a gente acha pra você.</div>
+                <div className="display" style={{ fontSize: 14, fontWeight: 600 }}>NÃ£o encontrou?</div>
+                <div style={{ fontSize: 12, color: "var(--ink-500)", marginTop: 6 }}>Manda foto da embalagem ou nome no WhatsApp e a gente acha pra vocÃª.</div>
                 <button className="btn btn-green btn-sm btn-block" style={{ marginTop: 12 }}><Icon.Whatsapp size={14} color="currentColor"/> Pedir no WhatsApp</button>
               </div>
             </div>
@@ -67,8 +67,8 @@ window.SearchPage = function SearchPage() {
             <div style={{ marginTop: 16, padding: 16, background: "var(--green-50)", borderRadius: 10, border: "1px solid var(--green-100)", display: "flex", gap: 12, alignItems: "center" }}>
               <Icon.Sprout size={20} color="var(--green-700)"/>
               <div style={{ fontSize: 13, color: "var(--ink-700)" }}>
-                <span className="bold" style={{ color: "var(--green-800)" }}>Dica:</span> pra ureia, a Santos recomenda combinar com inibidor de urease pra reduzir perda por volatilização.
-                <a href="#" style={{ color: "var(--green-700)", marginLeft: 8, fontWeight: 600 }}>Falar com agrônomo →</a>
+                <span className="bold" style={{ color: "var(--green-800)" }}>Dica:</span> pra ureia, a Santos recomenda combinar com inibidor de urease pra reduzir perda por volatilizaÃ§Ã£o.
+                <a href="#" style={{ color: "var(--green-700)", marginLeft: 8, fontWeight: 600 }}>Falar com agrÃ´nomo â†’</a>
               </div>
             </div>
 
@@ -79,7 +79,7 @@ window.SearchPage = function SearchPage() {
             <div style={{ marginTop: 48 }}>
               <div className="display" style={{ fontSize: 22, marginBottom: 16, fontWeight: 600 }}>Categorias relacionadas</div>
               <div className="chip-row">
-                {["Ureia 50kg", "Ureia revestida", "Sulfato de amônio", "Nitrato de amônio", "Ureia + NBPT", "Ureia perolada"].map((c, i) => (
+                {["Ureia 50kg", "Ureia revestida", "Sulfato de amÃ´nio", "Nitrato de amÃ´nio", "Ureia + NBPT", "Ureia perolada"].map((c, i) => (
                   <button key={i} className="chip">{c}</button>
                 ))}
               </div>
@@ -90,3 +90,4 @@ window.SearchPage = function SearchPage() {
     </div>
   );
 };
+

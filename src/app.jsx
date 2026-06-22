@@ -2,12 +2,12 @@
 const { useEffect } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "primary": "#0a6b3a",
-  "accent": "#e85a2c",
-  "cream": "#f4ead5",
+  "primary": "#004160",
+  "accent": "#ffb948",
+  "cream": "#f6f6f6",
   "density": "comfortable",
-  "showRural": true,
-  "headerStyle": "warm"
+  "showRural": false,
+  "headerStyle": "clean"
 }/*EDITMODE-END*/;
 
 function App() {
@@ -39,9 +39,13 @@ function App() {
 
   const showChrome = route !== "login";
 
+  const isHome = route === "home" || route === "";
+
   return (
     <div className="page-shell">
       {showChrome && <Header cartCount={3}/>}
+      {/* Espaçador para páginas internas compensar o header fixo (~156px) */}
+      {showChrome && !isHome && <div style={{ height: 156 }} />}
       <main>{page}</main>
       {showChrome && <Footer/>}
       <TweaksPanel title="Tweaks">

@@ -5,7 +5,7 @@
 // <BrandLogo/> component the rest of the app reads from.
 
 (function applyBrand() {
-  const id = new URLSearchParams(window.location.search).get("brand") || "whitelabel";
+  const id = new URLSearchParams(window.location.search).get("brand") || "allpack";
   const brands = window.BRANDS || {};
   const brand = brands[id] || brands.santos || Object.values(brands)[0];
   if (!brand) {
@@ -46,8 +46,8 @@ window.BrandLogo = function BrandLogo({ size = 28, color, mode = "primary" }) {
 
   if (logo.type === "image" && logo.url) {
     return (
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <img src={logo.url} alt={brand?.meta?.name || ""} style={{ height: size * 1.4, width: "auto", display: "block" }} />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img src={logo.url} alt={brand?.meta?.name || ""} style={{ height: size * 2.2, width: "auto", display: "block" }} />
       </div>
     );
   }
