@@ -85,8 +85,8 @@ window.PdpPage = function PdpPage() {
               </div>
 
               <div style={{ marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                <button className="btn btn-primary btn-lg" onClick={()=>go("carrinho")}><Icon.Cart size={18} color="#fff"/> Adicionar ao carrinho</button>
-                <button className="btn btn-green btn-lg" onClick={()=>go("checkout")}>Comprar agora â†’</button>
+                <button className="btn btn-primary btn-lg" onClick={()=>{ window.addToCart(p, qty); go("carrinho"); }}><Icon.Cart size={18} color="#fff"/> Adicionar ao carrinho</button>
+                <button className="btn btn-green btn-lg" onClick={()=>{ window.addToCart(p, qty); go("carrinho"); }}>Comprar agora →</button>
               </div>
 
               {/* CEP / freight calc */}

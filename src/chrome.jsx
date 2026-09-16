@@ -29,8 +29,10 @@ window.TopStrip = function TopStrip() {
   );
 };
 
-window.Header = function Header({ cartCount = 3 }) {
+window.Header = function Header() {
   const h = window.BRAND.copy.header;
+  const [cartItems] = window.useCart();
+  const cartCount = cartItems.reduce((s, i) => s + i.qty, 0);
 
   return (
     <header style={{ position: "fixed", left: 0, right: 0, top: 0, zIndex: 40, background: "#fff", boxShadow: "0 1px 0 #e2ecf5, 0 4px 20px rgba(0,40,96,0.06)" }}>
@@ -222,7 +224,7 @@ window.ProductCard = function ProductCard({ p, onClick }) {
         </div>
       </div>
 
-      <button className="btn btn-primary btn-block" onClick={e => e.stopPropagation()} style={{ borderRadius: 12, fontWeight: 700 }}>
+      <button className="btn btn-primary btn-block" onClick={e => { e.stopPropagation(); if (hasPrice) window.addToCart(p, 1); }} style={{ borderRadius: 12, fontWeight: 700 }}>
         <Icon.Cart size={15} color="#fff" />
         {hasPrice ? (pc.addBtn || "Adicionar ao carrinho") : "Solicitar cotação"}
       </button>

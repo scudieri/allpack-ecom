@@ -1,4 +1,4 @@
-/* global React, ReactDOM, useRoute, Header, Footer, HomePage, CategoryPage, PdpPage, CartPage, CheckoutPage, AuthPage, AccountPage, SearchPage, useTweaks, TweaksPanel, TweakSection, TweakColor, TweakRadio, TweakToggle, go */
+/* global React, ReactDOM, useRoute, Header, Footer, HomePage, CategoryPage, PdpPage, CartPage, AuthPage, AccountPage, SearchPage, useTweaks, TweaksPanel, TweakSection, TweakColor, TweakRadio, TweakToggle, go */
 const { useEffect } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -30,7 +30,6 @@ function App() {
     case "categoria": page = <CategoryPage/>; break;
     case "produto": page = <PdpPage/>; break;
     case "carrinho": page = <CartPage/>; break;
-    case "checkout": page = <CheckoutPage/>; break;
     case "login": page = <AuthPage/>; break;
     case "conta": page = <AccountPage/>; break;
     case "busca": page = <SearchPage/>; break;
@@ -43,7 +42,7 @@ function App() {
 
   return (
     <div className="page-shell">
-      {showChrome && <Header cartCount={3}/>}
+      {showChrome && <Header/>}
       {/* Espaçador para páginas internas compensar o header fixo (~156px) */}
       {showChrome && !isHome && <div style={{ height: 156 }} />}
       <main>{page}</main>

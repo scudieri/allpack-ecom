@@ -67,8 +67,6 @@ window.PRODUCTS_WITH_PHOTO = window.PRODUCTS.filter(p => p.photoUrl);
 // Hero copy now lives in the active brand config — exposed as window.HERO for compat.
 window.HERO = window.BRAND?.copy?.hero || {};
 
-window.CART_ITEMS = [];
-
 window.ORDERS = [
   { id: "#PED-2026-04183", date: "22 abr 2026", total: 2479.40, status: "transit", statusLabel: "A CAMINHO", items: 3, eta: "Chega hoje, 30 abr" },
   { id: "#PED-2026-03921", date: "07 abr 2026", total: 894.00, status: "delivered", statusLabel: "ENTREGUE", items: 5, eta: "Entregue 12 abr" },

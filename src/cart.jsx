@@ -1,17 +1,18 @@
-/* global React, Icon, ProductCard, PRODUCTS, CART_ITEMS, brl, go */
+/* global React, Icon, ProductCard, PRODUCTS, brl, go */
 const { useState } = React;
 
 window.CartPage = function CartPage() {
-  const [items, setItems] = useState(CART_ITEMS);
+  const [items, setItems] = window.useCart();
   const [coupon, setCoupon] = useState("");
 
   const sub = items.reduce((s, i) => s + i.price * i.qty, 0);
   const discount = sub * 0.05;
-  const shipping = sub > 800 ? 0 : 89;
-  const total = sub - discount + shipping;
+  const total = sub - discount;
 
   const updateQty = (id, q) => setItems(items.map(i => i.id === id ? {...i, qty: Math.max(1, q)} : i));
   const remove = (id) => setItems(items.filter(i => i.id !== id));
+  const empty = () => setItems([]);
+  const buyOnShopify = () => { window.location.href = window.buildShopifyCartUrl(items); };
 
   return (
     <div>
@@ -21,13 +22,6 @@ window.CartPage = function CartPage() {
             <a href="#home" style={{ color: "var(--green-700)" }}>Início</a> / Carrinho
           </div>
           <h1 style={{ fontSize: 56 }}>{window.BRAND.copy.cart.titleStart} <span className="italic" style={{ color: "var(--orange-600)" }}>{window.BRAND.copy.cart.italic}</span></h1>
-          <div style={{ display: "flex", alignItems: "center", gap: 24, marginTop: 12, fontSize: 13, color: "var(--ink-500)" }}>
-            <span><span style={{ color: "var(--green-700)", fontWeight: 600 }}>1.</span> Carrinho</span>
-            <span>→</span>
-            <span><span style={{ fontWeight: 600 }}>2.</span> Identificação</span>
-            <span>→</span>
-            <span><span style={{ fontWeight: 600 }}>3.</span> Entrega e pagamento</span>
-          </div>
         </div>
       </section>
 
@@ -37,7 +31,7 @@ window.CartPage = function CartPage() {
             <div className="card" style={{ padding: 24 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
                 <div className="display" style={{ fontSize: 22, fontWeight: 600 }}>{items.length} produtos no carrinho</div>
-                <button className="btn btn-ghost btn-sm" style={{ color: "var(--ink-500)" }}>Esvaziar carrinho</button>
+                <button onClick={empty} className="btn btn-ghost btn-sm" style={{ color: "var(--ink-500)" }}>Esvaziar carrinho</button>
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 {items.map((it, idx) => (
@@ -92,7 +86,7 @@ window.CartPage = function CartPage() {
                 <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: 14 }}>
                   <Row l={`Subtotal (${items.reduce((s,i)=>s+i.qty,0)} itens)`} v={brl(sub)} />
                   <Row l="Cupom SAFRA5" v={`- ${brl(discount)}`} green/>
-                  <Row l="Frete (Pouso Alegre/MG)" v={shipping === 0 ? "GRÁTIS" : brl(shipping)} green={shipping===0}/>
+                  <div style={{ fontSize: 11, color: "var(--ink-500)" }}>Frete calculado no checkout</div>
                   <hr className="divider" style={{ margin: "8px 0" }}/>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                     <span className="display" style={{ fontSize: 18, fontWeight: 600 }}>Total</span>
@@ -106,7 +100,7 @@ window.CartPage = function CartPage() {
                     <span>Pague no Pix por <span className="bold" style={{ color: "var(--green-800)" }}>{brl(total * 0.95)}</span> (5% off)</span>
                   </div>
                 </div>
-                <button className="btn btn-primary btn-lg btn-block" style={{ marginTop: 20 }} onClick={()=>go("checkout")}>Ir pro checkout →</button>
+                <button className="btn btn-primary btn-lg btn-block" style={{ marginTop: 20 }} disabled={items.length === 0} onClick={buyOnShopify}>Finalizar compra →</button>
                 <button className="btn btn-outline btn-block" style={{ marginTop: 8 }} onClick={()=>go("home")}>Continuar comprando</button>
               </div>
 
