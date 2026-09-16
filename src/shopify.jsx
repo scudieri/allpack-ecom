@@ -4,11 +4,14 @@ window.SHOPIFY = {
   domain: "allpack-medical.myshopify.com",
 };
 
-// Variant ID real da Shopify por produto — preencher assim que cada item for confirmado na loja.
+// Variant ID real da Shopify por produto (allpack-medical.myshopify.com).
 window.SHOPIFY_VARIANT_BY_PRODUCT_ID = {
-  p1: null, p2: null, p3: null, p4: null, p5: null, p6: null, p7: null, p8: null, p9: null, p10: null,
-  p11: null, p12: null, p13: null, p14: null, p15: null, p16: null, p17: null, p18: null, p19: null, p20: null,
-  p21: null, p22: null, p23: null, p24: null, p25: null, p26: null, p27: null, p28: null, p29: null, p30: null,
+  p1: 50454044508353, p2: 50454044606657, p3: 50454044704961, p4: 50454044737729, p5: 50454045458625,
+  p6: 50454045491393, p7: 50454045524161, p8: 50454045556929, p9: 50454045589697, p10: 50454046081217,
+  p11: 50454046277825, p12: 50454046310593, p13: 50454046474433, p14: 50454046802113, p15: 50454046834881,
+  p16: 50454046867649, p17: 50454046900417, p18: 50454046933185, p19: 50454046965953, p20: 50454046998721,
+  p21: 50454047031489, p22: 50454047064257, p23: 50454047097025, p24: 50454047129793, p25: 50454047162561,
+  p26: 50454046572737, p27: 50454046605505, p28: 50454046736577, p29: 50454045851841, p30: 50454046769345,
 };
 
 window.buildShopifyCartUrl = function buildShopifyCartUrl(items) {
