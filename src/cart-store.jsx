@@ -23,13 +23,19 @@ window.getCartItems = readCart;
 
 window.setCartItems = writeCart;
 
-window.addToCart = (product, qty = 1) => {
+// item do carrinho = produto + variante. product.variantId é a variante padrão; "variant" escolhe outra.
+window.addToCart = (product, qty = 1, variant = null) => {
+  const variantId = (variant && variant.variantId) || product.variantId;
+  const key = product.id + ":" + variantId;
   const items = readCart();
-  const existing = items.find(i => i.id === product.id);
+  const existing = items.find(i => i.key === key);
   if (existing) {
     existing.qty += qty;
   } else {
-    items.push({ id: product.id, name: product.name, brand: product.brand, price: product.price, color: product.color, qty });
+    items.push({
+      key, id: product.id, variantId, handle: product.handle, name: product.name, variantLabel: variant ? variant.label : "",
+      brand: product.brand, price: (variant && variant.price) || product.price, photo: product.photoUrl || "", qty,
+    });
   }
   return writeCart(items);
 };

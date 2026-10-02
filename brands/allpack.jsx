@@ -107,7 +107,7 @@ const AllpackMark = ({ size = 40, color = "#0d3d5c" }) => {
     header: {
       searchPlaceholder: "Buscar por produto, código ANVISA ou categoria...",
       searchBtn: "Buscar",
-      categories: ["Centro Cirúrgico", "Kits", "Campos", "Cateteres", "Estetoscópios", "Oxímetros", "Ap. de Pressão", "Termômetros"],
+      categories: ["Aventais", "Campos Fenestrados", "Campos de Mesa", "Oftalmologia", "Kits Cirúrgicos", "Hemodinâmica", "Sterile Drape", "Sondas Urológicas"],
       allCategoriesBtn: "Catálogo completo",
       greetingPrefix: "Olá,",
       greetingName: "Cliente",
@@ -121,7 +121,7 @@ const AllpackMark = ({ size = 40, color = "#0d3d5c" }) => {
       eyebrow: "Fornecedor médico-hospitalar • ANVISA regulamentado",
       title: "Materiais",
       italic: "cirúrgicos de precisão",
-      subtitle: "Cateteres, kits, campos cirúrgicos e equipamentos com certificação ANVISA — entrega rápida e faturamento para hospitais, clínicas e distribuidores.",
+      subtitle: "Aventais, campos cirúrgicos, kits, sterile drapes e sondas com certificação ANVISA — entrega rápida e faturamento para hospitais, clínicas e distribuidores.",
       cta1: "Explorar catálogo",
       cta2: "Falar com consultor",
       stats: [
@@ -141,14 +141,14 @@ const AllpackMark = ({ size = 40, color = "#0d3d5c" }) => {
       titleEnd: "",
       seeAll: "Ver catálogo",
       items: [
-        { id: "centro-cirurgico",  label: "Centro Cirúrgico",  icon: "Shield",  color: "var(--green-700)" },
-        { id: "kits-cirurgicos",   label: "Kits Cirúrgicos",   icon: "Package", color: "#0073a8" },
-        { id: "campos-cirurgicos", label: "Campos Cirúrgicos", icon: "Leaf",    color: "var(--green-600)" },
-        { id: "cateteres-sondas",  label: "Cateteres",         icon: "Drop",    color: "var(--green-800)" },
-        { id: "estetoscopios",     label: "Estetoscópios",     icon: "Package", color: "#004b61" },
-        { id: "oximetros",         label: "Oxímetros",         icon: "Box",     color: "#005f7a" },
-        { id: "pressao",           label: "Ap. de Pressão",    icon: "Shield",  color: "#004160" },
-        { id: "termometros",       label: "Termômetros",       icon: "Box",     color: "#002840" },
+        { id: "aventais",           label: "Aventais e Vestimenta", icon: "Shield",  color: "var(--green-700)" },
+        { id: "campos-fenestrados", label: "Campos Fenestrados",    icon: "Leaf",    color: "#0073a8" },
+        { id: "campos-mesa",        label: "Campos de Mesa",        icon: "Leaf",    color: "var(--green-600)" },
+        { id: "oftalmologia",       label: "Oftalmologia",          icon: "Shield",  color: "var(--green-800)" },
+        { id: "kits-cirurgicos",    label: "Kits Cirúrgicos",       icon: "Package", color: "#004b61" },
+        { id: "hemodinamica",       label: "Hemodinâmica",          icon: "Package", color: "#005f7a" },
+        { id: "sterile-drape",      label: "Sterile Drape",         icon: "Box",     color: "#004160" },
+        { id: "sondas-urologicas",  label: "Sondas Urológicas",     icon: "Drop",    color: "#002840" },
       ],
     },
 
@@ -221,7 +221,7 @@ const AllpackMark = ({ size = 40, color = "#0d3d5c" }) => {
     footer: {
       tagline: "Materiais médico-hospitalares certificados — fornecimento com rigor técnico, rastreabilidade e agilidade para sua equipe.",
       cols: [
-        { h: "Catálogo", links: ["Centro Cirúrgico", "Kits Cirúrgicos", "Campos Cirúrgicos", "Cateteres e Sondas", "Estetoscópios", "Oxímetros"] },
+        { h: "Catálogo", links: [] },
         { h: "Atendimento", links: ["Fale conosco", "Suporte técnico", "Calcule o frete", "Política de troca", "Rastrear pedido"] },
         { h: "allpack.", links: ["Quem somos", "Certificações", "Seja distribuidor", "Parcerias", "Trabalhe conosco"] },
         { h: "Jurídico", links: ["Termos de uso", "Privacidade", "Compra segura", "Regulamento ANVISA"] },

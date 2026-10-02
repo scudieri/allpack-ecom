@@ -33,6 +33,8 @@ window.Header = function Header() {
   const h = window.BRAND.copy.header;
   const [cartItems] = window.useCart();
   const cartCount = cartItems.reduce((s, i) => s + i.qty, 0);
+  const [q, setQ] = useState("");
+  const doSearch = () => { const t = q.trim(); go(t ? "busca/" + encodeURIComponent(t) : "categoria"); };
 
   return (
     <header style={{ position: "fixed", left: 0, right: 0, top: 0, zIndex: 40, background: "#fff", boxShadow: "0 1px 0 #e2ecf5, 0 4px 20px rgba(0,40,96,0.06)" }}>
@@ -52,11 +54,12 @@ window.Header = function Header() {
           </div>
           <input
             placeholder={h.searchPlaceholder}
+            value={q} onChange={e => setQ(e.target.value)} onKeyDown={e => { if (e.key === "Enter") doSearch(); }}
             style={{ width: "100%", height: 44, paddingLeft: 44, paddingRight: 108, border: "1.5px solid #e2ecf5", borderRadius: 999, background: "#f7fafd", fontSize: 14, color: "#002840", outline: "none", fontFamily: "inherit", transition: "border-color 0.15s, box-shadow 0.15s" }}
-            onFocus={e => { e.target.style.borderColor = "#0195ff"; e.target.style.boxShadow = "0 0 0 3px rgba(1,149,255,0.1)"; go("busca"); }}
+            onFocus={e => { e.target.style.borderColor = "#0195ff"; e.target.style.boxShadow = "0 0 0 3px rgba(1,149,255,0.1)"; }}
             onBlur={e => { e.target.style.borderColor = "#e2ecf5"; e.target.style.boxShadow = "none"; }}
           />
-          <button className="btn btn-primary btn-sm" style={{ position: "absolute", right: 5, top: 5, height: 34, borderRadius: 999, fontSize: 13, fontWeight: 600 }}>
+          <button onClick={doSearch} className="btn btn-primary btn-sm" style={{ position: "absolute", right: 5, top: 5, height: 34, borderRadius: 999, fontSize: 13, fontWeight: 600 }}>
             {h.searchBtn}
           </button>
         </div>
@@ -90,16 +93,16 @@ window.Header = function Header() {
       {/* Nav de categorias */}
       <div style={{ borderTop: "1px solid #edf3f8", background: "#fff" }}>
         <div className="container" style={{ display: "flex", alignItems: "center", padding: "0 40px" }}>
-          {h.categories.map((c, i) => (
-            <a key={i} href="#" onClick={(e) => { e.preventDefault(); go("categoria"); }}
+          {(window.CATEGORIES || []).map((cat, i) => { const c = cat.label; return (
+            <a key={cat.id} href={"#categoria/" + cat.id} onClick={(e) => { e.preventDefault(); go("categoria/" + cat.id); }}
               style={{ padding: "11px 16px", fontSize: 13, fontWeight: 500, color: "#334d62", whiteSpace: "nowrap", borderBottom: "2px solid transparent", display: "block", transition: "color 0.15s, border-color 0.15s", cursor: "pointer" }}
               onMouseEnter={e => { e.currentTarget.style.color = "#0195ff"; e.currentTarget.style.borderBottomColor = "#0195ff"; }}
               onMouseLeave={e => { e.currentTarget.style.color = "#334d62"; e.currentTarget.style.borderBottomColor = "transparent"; }}>
               {c}
             </a>
-          ))}
+          ); })}
           <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 20, paddingLeft: 20, flexShrink: 0 }}>
-            <a href="#login" onClick={(e) => { e.preventDefault(); go("login"); }}
+            <a href="#conta" onClick={(e) => { e.preventDefault(); go("conta"); }}
               style={{ fontSize: 13, fontWeight: 600, color: "#0195ff", cursor: "pointer" }}>{h.login}</a>
             <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "#7a9ab0" }}>
               <Icon.Whatsapp size={14} color="#0195ff" />
@@ -132,11 +135,11 @@ window.Footer = function Footer() {
             <div key={i}>
               <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.15em", color: "#0195ff", marginBottom: 20, textTransform: "uppercase" }}>{col.h}</div>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-                {col.links.map((l, j) => (
+                {(i === 0 ? (window.CATEGORIES || []).map(c => ({ label: c.label, to: "categoria/" + c.id })) : col.links.map(l => ({ label: l, to: null }))).map((l, j) => (
                   <li key={j}>
-                    <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", transition: "color 0.15s" }}
+                    <a href={l.to ? "#" + l.to : "#"} onClick={(e) => { e.preventDefault(); if (l.to) go(l.to); }} style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", transition: "color 0.15s" }}
                       onMouseEnter={e => e.target.style.color = "#fff"}
-                      onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.45)"}>{l}</a>
+                      onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.45)"}>{l.label}</a>
                   </li>
                 ))}
               </ul>
@@ -185,11 +188,11 @@ window.ProductCard = function ProductCard({ p, onClick }) {
   const hasPrice = p.price > 0;
   const [wish, setWish] = React.useState(false);
   return (
-    <div className="prod-card" onClick={onClick} style={{ cursor: "pointer" }}>
+    <div className="prod-card" onClick={() => go("produto/" + p.handle)} style={{ cursor: "pointer" }}>
       <div className="prod-img">
         {p.badge && <span className="discount-badge">{p.badge}</span>}
         {p.photoUrl
-          ? <img src={p.photoUrl} alt={p.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display = "none"} />
+          ? <img src={p.photoUrl} alt={p.name} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", background: "#fff" }} onError={e => e.target.style.display = "none"} />
           : <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", background: "#f0f6fc" }}>
               <div style={{ color: "#c8dcea", fontFamily: "var(--mono)", fontSize: 10 }}>{pc.photoLabel || "FOTO"}</div>
             </div>
@@ -205,11 +208,15 @@ window.ProductCard = function ProductCard({ p, onClick }) {
       <div style={{ display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
         <div style={{ fontFamily: "var(--mono)", color: "#7a9ab0", fontSize: 10, letterSpacing: "0.1em" }}>{p.brand}</div>
         <div style={{ fontSize: 15, fontWeight: 600, color: "#002840", lineHeight: 1.3, minHeight: 40 }}>{p.name}</div>
-        <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-          <span style={{ color: "#ffb948", fontSize: 13 }}>★</span>
-          <span style={{ fontSize: 13, fontWeight: 700, color: "#002840" }}>{p.rating}</span>
-          <span style={{ fontSize: 12, color: "#7a9ab0" }}>({p.reviews})</span>
-        </div>
+        {p.rating
+          ? <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+              <span style={{ color: "#ffb948", fontSize: 13 }}>★</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "#002840" }}>{p.rating}</span>
+              <span style={{ fontSize: 12, color: "#7a9ab0" }}>({p.reviews})</span>
+            </div>
+          : <div style={{ fontSize: 12, color: p.stock > 0 ? "#1a7f4b" : "#7a9ab0", fontWeight: 600 }}>
+              {p.stock > 0 ? "Em estoque" : "Sob consulta"}
+            </div>}
         <div style={{ marginTop: "auto", paddingTop: 12, borderTop: "1px solid #f0f4f8" }}>
           {hasPrice
             ? <>
@@ -224,7 +231,7 @@ window.ProductCard = function ProductCard({ p, onClick }) {
         </div>
       </div>
 
-      <button className="btn btn-primary btn-block" onClick={e => { e.stopPropagation(); if (hasPrice) window.addToCart(p, 1); }} style={{ borderRadius: 12, fontWeight: 700 }}>
+      <button className="btn btn-primary btn-block" onClick={e => { e.stopPropagation(); if (hasPrice) window.addToCart(p, 1); else go("produto/" + p.handle); }} style={{ borderRadius: 12, fontWeight: 700 }}>
         <Icon.Cart size={15} color="#fff" />
         {hasPrice ? (pc.addBtn || "Adicionar ao carrinho") : "Solicitar cotação"}
       </button>

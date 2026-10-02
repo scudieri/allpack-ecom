@@ -1,4 +1,4 @@
-/* global React, ReactDOM, useRoute, Header, Footer, HomePage, CategoryPage, PdpPage, CartPage, AuthPage, AccountPage, SearchPage, useTweaks, TweaksPanel, TweakSection, TweakColor, TweakRadio, TweakToggle, go */
+/* global React, ReactDOM, useRoute, Header, Footer, HomePage, CategoryPage, PdpPage, CartPage, AuthPage, AccountPage, SearchPage, useTweaks, TweaksPanel, TweakSection, TweakColor, TweakRadio, TweakToggle, go, loadLiveCatalog */
 const { useEffect } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -11,7 +11,19 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 function App() {
-  const [route] = useRoute();
+  const [path] = useRoute();
+  const [route, rawArg] = path.split("/");
+  const arg = rawArg ? decodeURIComponent(rawArg) : "";
+  const [, setCatalogVersion] = React.useState(0);
+
+  // Mantém o catálogo sincronizado com a Shopify: a cada 2 min e ao voltar para a aba.
+  useEffect(() => {
+    const refresh = () => window.loadLiveCatalog().then(ok => ok && setCatalogVersion(v => v + 1));
+    const t = setInterval(refresh, 120000);
+    const onVis = () => { if (!document.hidden) refresh(); };
+    document.addEventListener("visibilitychange", onVis);
+    return () => { clearInterval(t); document.removeEventListener("visibilitychange", onVis); };
+  }, []);
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
 
   useEffect(() => {
@@ -23,20 +35,20 @@ function App() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [route]);
+  }, [path]);
 
   let page;
   switch (route) {
-    case "categoria": page = <CategoryPage/>; break;
-    case "produto": page = <PdpPage/>; break;
+    case "categoria": page = <CategoryPage cat={arg}/>; break;
+    case "produto": page = <PdpPage handle={arg}/>; break;
     case "carrinho": page = <CartPage/>; break;
     case "login": page = <AuthPage/>; break;
     case "conta": page = <AccountPage/>; break;
-    case "busca": page = <SearchPage/>; break;
+    case "busca": page = <SearchPage q={arg}/>; break;
     default: page = <HomePage/>;
   }
 
-  const showChrome = route !== "login";
+  const showChrome = true;
 
   const isHome = route === "home" || route === "";
 
@@ -58,4 +70,6 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+window.loadLiveCatalog().finally(() => {
+  ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+});

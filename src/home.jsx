@@ -1,6 +1,7 @@
-/* global React, Icon, ProductCard, PRODUCTS, PRODUCTS_WITH_PHOTO, brl, go, BrandLogo, TrustBanner */
+/* global React, Icon, ProductCard, PRODUCTS, PRODUCTS_FEATURED, brl, go, BrandLogo, TrustBanner */
 
 window.HomePage = function HomePage() {
+  const [chip, setChip] = React.useState("");
   const B    = window.BRAND.copy;
   const HERO = B.hero;
   const cats = B.categories;
@@ -56,7 +57,7 @@ window.HomePage = function HomePage() {
                 {[
                   { v: "ANVISA",  l: "Certificação em todos os produtos",      icon: "Award"    },
                   { v: "48h",     l: "Prazo de entrega para capitais",          icon: "Truck"    },
-                  { v: "5.000+",  l: "SKUs disponíveis em estoque",             icon: "Box"      },
+                  { v: String(PRODUCTS.length), l: "produtos disponíveis em estoque", icon: "Box"      },
                   { v: "B2B",     l: "Faturamento e boleto para CNPJ",          icon: "Shield"   },
                 ].map((s, i) => {
                   const I = Icon[s.icon];
@@ -91,11 +92,11 @@ window.HomePage = function HomePage() {
                 {cats.seeAll} <Icon.Chevron size={12} color="#0195ff" />
               </a>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(8, 1fr)", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: 12 }}>
               {cats.items.map((c) => {
                 const I = Icon[c.icon];
                 return (
-                  <a key={c.id} href="#" onClick={(e) => { e.preventDefault(); go("categoria"); }}
+                  <a key={c.id} href={"#categoria/" + c.id} onClick={(e) => { e.preventDefault(); go("categoria/" + c.id); }}
                     style={{ background: "#f4f8fc", border: "1.5px solid #e2ecf5", borderRadius: 18, padding: "22px 8px 18px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 12, cursor: "pointer", transition: "all 0.18s" }}
                     onMouseEnter={e => { e.currentTarget.style.background = "#eef5fc"; e.currentTarget.style.borderColor = "#0195ff"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(1,149,255,0.12)"; }}
                     onMouseLeave={e => { e.currentTarget.style.background = "#f4f8fc"; e.currentTarget.style.borderColor = "#e2ecf5"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
@@ -124,15 +125,18 @@ window.HomePage = function HomePage() {
                 </h2>
               </div>
               <div style={{ display: "flex", gap: 8 }}>
-                {best.chips.map((c, i) => (
-                  <button key={i} style={{ padding: "8px 18px", borderRadius: 999, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", transition: "all 0.15s", border: "1.5px solid", background: i === 0 ? "#002840" : "transparent", color: i === 0 ? "#fff" : "#334d62", borderColor: i === 0 ? "#002840" : "#c8dcea" }}>
-                    {c}
+                {[{ id: "", label: "Todos" }, ...(window.CATEGORIES || []).slice(0, 4)].map((c, i) => {
+                  const on = chip === c.id;
+                  return (
+                  <button key={c.id} onClick={() => setChip(c.id)} style={{ padding: "8px 18px", borderRadius: 999, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", transition: "all 0.15s", border: "1.5px solid", background: on ? "#002840" : "#fff", color: on ? "#fff" : "#334d62", borderColor: on ? "#002840" : "#c8dcea" }}>
+                    {c.label}
                   </button>
-                ))}
+                  );
+                })}
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
-              {PRODUCTS_WITH_PHOTO.slice(0, 8).map(p => <ProductCard key={p.id} p={p} onClick={() => go("produto")} />)}
+              {(chip ? PRODUCTS.filter(p => p.category === chip) : PRODUCTS_FEATURED).slice(0, 8).map(p => <ProductCard key={p.id} p={p} />)}
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginTop: 52 }}>
               <button className="btn btn-lg" onClick={() => go("categoria")}
@@ -249,7 +253,7 @@ window.HomePage = function HomePage() {
               </a>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
-              {PRODUCTS_WITH_PHOTO.slice(4, 12).map(p => <ProductCard key={p.id} p={p} onClick={() => go("produto")} />)}
+              {PRODUCTS_FEATURED.slice(8, 16).map(p => <ProductCard key={p.id} p={p} />)}
             </div>
           </div>
         </section>
