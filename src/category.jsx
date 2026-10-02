@@ -36,7 +36,7 @@ window.ProductListing = function ProductListing({ products, activeCat, basePath,
 
       <section style={{ padding: "36px 0 96px" }}>
         <div className="container" style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: 32, alignItems: "start" }}>
-          <aside className="card" style={{ padding: 22, position: "sticky", top: 190 }}>
+          <aside className="card filters" style={{ padding: 22, position: "sticky", top: 190 }}>
             <div style={{ fontSize: 13, fontWeight: 700, color: "#002840", marginBottom: 12 }}>Categorias</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {[{ id: "", label: "Todos os produtos" }, ...cats].map(c => {

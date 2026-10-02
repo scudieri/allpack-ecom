@@ -15,6 +15,16 @@ function App() {
   const [route, rawArg] = path.split("/");
   const arg = rawArg ? decodeURIComponent(rawArg) : "";
   const [, setCatalogVersion] = React.useState(0);
+  const [headerH, setHeaderH] = React.useState(156);
+
+  // O cabeçalho é fixo; o espaçador acompanha a altura real dele (muda no celular).
+  useEffect(() => {
+    const measure = () => { const h = document.querySelector("header"); if (h) setHeaderH(h.offsetHeight); };
+    measure();
+    window.addEventListener("resize", measure);
+    const t = setTimeout(measure, 600);
+    return () => { window.removeEventListener("resize", measure); clearTimeout(t); };
+  }, [path]);
 
   // Mantém o catálogo sincronizado com a Shopify: a cada 2 min e ao voltar para a aba.
   useEffect(() => {
@@ -56,7 +66,7 @@ function App() {
     <div className="page-shell">
       {showChrome && <Header/>}
       {/* Espaçador para páginas internas compensar o header fixo (~156px) */}
-      {showChrome && !isHome && <div style={{ height: 156 }} />}
+      {showChrome && !isHome && <div style={{ height: headerH }} />}
       <main>{page}</main>
       {showChrome && <Footer/>}
       <TweaksPanel title="Tweaks">

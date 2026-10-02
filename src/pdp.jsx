@@ -46,7 +46,7 @@ window.PdpPage = function PdpPage({ handle }) {
             <span>{p.name}</span>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 56 }}>
+          <div className="pdp-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 56 }}>
             {/* Galeria */}
             <div style={{ display: "grid", gridTemplateColumns: photos.length > 1 ? "84px 1fr" : "1fr", gap: 16, alignItems: "start" }}>
               {photos.length > 1 && (
